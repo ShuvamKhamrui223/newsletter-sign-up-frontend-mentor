@@ -1,0 +1,317 @@
+/* importing bold font-family */
+@font-face {
+    font-family: "Roboto-Bold";
+    src: url(assets/fonts/Roboto-Bold.ttf);
+}
+
+/* importing regular font-family */
+@font-face {
+    font-family: "Roboto-Regular";
+    src: url(assets/fonts/Roboto-Regular.ttf);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* outline: 0.125rem solid green; */
+}
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+}
+
+p {
+    font-weight: 400;
+    font-size: clamp(1.4rem, 2vw, 1.6rem);
+    color: var(--charchol-grey);
+    font-family: var(--font-regular);
+}
+
+img,
+svg {
+    display: block;
+    max-width: 100%;
+}
+
+:root {
+    --primary-color: hsl(4, 100%, 67%);
+    --dark-slate-grey: hsl(234, 29%, 20%);
+    --charchol-grey: hsl(235, 18%, 26%);
+    --grey: hsl(231, 7%, 60%);
+    --white: hsl(0, 0%, 100%);
+    --font-regular: "Roboto-Regular";
+    --font-bold: "Roboto-Bold";
+}
+
+html {
+    font-size: 62.5%;
+    /* color-scheme: light dark; */
+}
+
+h1,
+h2,
+p,
+label,
+img,
+button {
+    user-select: none;
+}
+
+*button:hover {
+    box-shadow: 0 0.4rem 0.6rem rgba(0, 0, 0, 0.2);
+    background-image: linear-gradient(to left, var(--primary-color), #FF3E83);
+}
+
+body {
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--dark-slate-grey);
+}
+
+main {
+    width: 65vw;
+    height: 80%;
+    padding: 2rem;
+    border-radius: 2rem;
+    display: grid;
+    align-content: center;
+    grid-template-rows: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    background-color: var(--white);
+    transition: transform 0.4s ease;
+}
+
+main.hide {
+    transform: translateY(100%);
+}
+
+main>.formContainer {
+    width: 100%;
+    height: 100%;
+    padding: 2rem;
+    row-gap: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.formContainer>h1 {
+    font-weight: 700;
+    font-size: clamp(3.5rem, 10vw, 5rem);
+    font-family: var(--font-bold);
+    color: var(--dark-slate-grey);
+}
+
+.formContainer>p {
+    line-height: 2.2rem;
+}
+
+.formContainer>ul {
+    display: flex;
+    row-gap: 1.4rem;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.formContainer>ul>li {
+    display: flex;
+    column-gap: 1rem;
+    align-items: center;
+}
+
+.formContainer>form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-block: 1rem;
+}
+
+.formContainer>form>div {
+    height: fit-content;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.formContainer>form>div>small {
+    font-size: 1.2rem;
+    font-family: var(--font-regular);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(100%);
+    transition: opacity 0.5s, transform 0.3s cubic-bezier(1, 0, 0, 1);
+    color: var(--primary-color);
+}
+
+.formContainer>form>div>small::first-letter {
+    text-transform: uppercase;
+}
+
+.formContainer>form>div>small.show {
+    opacity: 1;
+    transform: translateX(0%);
+}
+
+.formContainer>form>div>label {
+    font-weight: 700;
+    font-size: 1rem;
+    padding-block: 1rem;
+    font-family: var(--font-regular);
+}
+
+.formContainer>form>#emailField {
+    resize: none;
+    cursor: pointer;
+    border-radius: 0.8rem;
+    margin-bottom: 1.5rem;
+    padding: 1.5rem 1.2rem;
+    color: var(--charchol-grey);
+    border: 0.125rem solid var(--charchol-grey);
+}
+
+
+.formContainer>form>button {
+    border: none;
+    resize: none;
+    font-weight: 700;
+    cursor: pointer;
+    color: var(--white);
+    border-radius: 0.8rem;
+    padding: 1.5rem 1.2rem;
+    background: var(--dark-slate-grey);
+    transition: background 0.2s ease-in;
+}
+
+.formContainer>form>button:hover {
+    background: linear-gradient(to left, var(--primary-color), #FF3E83);
+    box-shadow: 0 0.4rem 0.6rem rgba(0, 0, 0, 0.2);
+}
+
+.imageContainer {
+    width: 100%;
+    height: 100%;
+    background: url(assets/images/illustration-sign-up-desktop.svg) no-repeat center;
+}
+
+/* CSS code for modal starts here */
+.modal-wrapper {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    place-items: center;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.4s ease-in;
+}
+
+.modal-wrapper>.modal {
+    width: 35rem;
+    height: 40rem;
+    display: flex;
+    row-gap: 1.2rem;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 4rem;
+    border-radius: 2rem;
+    background-color: var(--white);
+    transform: scale(0) skew(45deg);
+    transition: transform 0.8s cubic-bezier(1, 0, 0, 1);
+}
+
+
+.modal-wrapper.show {
+    z-index: 1;
+    opacity: 1;
+}
+
+.modal-wrapper.show .modal {
+    transform: scale(1) skew(0);
+}
+
+.modal>img {
+    width: 5rem;
+    height: 5rem;
+}
+
+.modal>h2 {
+    font-size: 4rem;
+    font-family: var(--font-bold);
+}
+
+.modal>p {
+    line-height: 2rem;
+    font-size: 1.2rem;
+}
+
+.modal>p>span {
+    font-weight: 700;
+}
+
+.modal>button {
+    border: none;
+    cursor: pointer;
+    font-weight: 700;
+    color: var(--white);
+    padding: 1rem 1.2rem;
+    border-radius: 0.8rem;
+    background: var(--dark-slate-grey);
+}
+
+
+@media (width<=1024px) {
+    main {
+        width: 70vw;
+    }
+}
+
+@media (width<=768px) {
+    main {
+        width: 100vw;
+        height: 100vh;
+        padding: 0;
+        display: flex;
+        gap: 1.5rem;
+        border-radius: 0;
+        flex-direction: column-reverse;
+    }
+
+    .imageContainer {
+        order: 1;
+        width: 100%;
+        border-bottom-left-radius: 2rem;
+        border-bottom-right-radius: 2rem;
+        background-size: cover;
+        background-image: url(assets/images/illustration-sign-up-mobile.svg);
+    }
+
+    .modal-wrapper>.modal {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        border-radius: 0;
+        padding-inline: 2rem;
+    }
+
+    .modal>p {
+        justify-self: flex-end;
+        font-size: 1.4rem;
+    }
+
+    .modal-wrapper>.modal>button {
+        justify-self: flex-end;
+        padding-block: 1.8rem 1.5rem;
+    }
+}
